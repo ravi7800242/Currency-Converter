@@ -1,0 +1,29 @@
+package on.converter.currencyconverter;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import java.util.Scanner;
+import java.math.RoundingMode;
+
+public class App {
+    public static void getData(String c,String d,float e) throws Exception {
+        StringBuffer br = new StringBuffer();
+        String url="https://transferwise.com/in/currency-converter/"+c+"-to-"+d+"-rate?amount="+e;
+Document doc=Jsoup.connect(url).get();
+Elements ele1=doc.getElementsByClass("cc__source-to-target hidden-xs");
+String count=ele1.select("span.text-success").text();
+float amount= Float.parseFloat(count);
+amount=amount*e;
+System.out.println(amount+" "+d);
+System.out.println("Rate of 1"+" "+c+" to"+" "+ d+":"+count+" "+d);
+    }
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter country currency code from which you wants to convert: ");
+        String co = sc.nextLine();
+        System.out.println("Enter country currency code to which you wants to convert: ");
+        String dd = sc.nextLine();
+        System.out.println("Enter the amount of"+" "+co+" "+"to convert in"+" "+dd);
+  float ee=sc.nextFloat();
+  getData(co,dd,ee);
+ }}
